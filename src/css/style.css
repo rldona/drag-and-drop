@@ -21,7 +21,7 @@ p {
 	line-height: 65px;
 }
 
-.objeto {
+.widget {
 	float: left;
 	width: 100px;
 	height: 100px;
@@ -36,7 +36,17 @@ p {
 .blue { background-color: #aad4ff; }
 .green { background-color: #aaff56; }
 
-#origen, #destino {
+#origen {
+	height: 107px;
+	padding: 20px;
+	border: 2px solid #888;
+	margin: 20px 0;
+	text-align: center;
+	background: rgba(255, 255, 255, .5);
+	border-radius: 20px;
+}
+
+.destino {
 	height: 107px;
 	padding: 20px;
 	border: 2px solid #888;

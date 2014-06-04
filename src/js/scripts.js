@@ -3,7 +3,7 @@ $(function() {
 	var objArrastrado, objContenedor = 'null';
 
 	// Eventos para el objeto arrastrable
-	var objetos = $('#origen').find('.objeto');
+	var objetos = $('#origen').find('.widget');
 
 	[].forEach.call(objetos, function(e) {
 		e.addEventListener('dragstart', dragStart, false);
@@ -21,7 +21,7 @@ $(function() {
 	});
 
 	// Eventos para el panel destino
-	var destinos = $('#destino');
+	var destinos = $('.destino');
 
 	[].forEach.call(destinos, function(e) {
 		e.addEventListener('dragenter', dragEnter, false);
@@ -31,7 +31,7 @@ $(function() {
 	});
 
 	// Mostramos incialmente la etiqueta en el contenedor destino
-	$("#destino").append('<p>DRAG&DROP</p>');
+	/*$("#destino").append('<p>DRAG&DROP</p>');*/
 
 });
 
@@ -128,10 +128,10 @@ function dragLeave(e) {
 function dragEnd(e) {
 
 	// Si no hay elemento en el contenedor mostramos el texto
-	if ($("#destino div").length === 0) $("#destino").append('<p>DRAG&DROP</p>');
+	/*if ($("#destino div").length === 0) $("#destino").append('<p>DRAG&DROP</p>');*/
 
 	// Si no hay elemento en el contenedor mostramos el texto
-	if ($("#origen div").length === 0) $("#origen").append('<p>DRAG&DROP</p>');
+	/*if ($("#origen div").length === 0) $("#origen").append('<p>DRAG&DROP</p>');*/
 
 	/* Reseteamos valores modificados para inicializarlos */
 	$(this).css({
