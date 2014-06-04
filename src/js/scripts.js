@@ -1,70 +1,79 @@
+// Valores iniciales de objetos
+var objArrastrado,
+		objContenedor,
+		origenes = $('#origen'),
+		objetos = $('#origen .widget'),
+		destinos = $('.destino');
+
 $(function() {
-	// Valores iniciales de objetos
-	var objArrastrado, objContenedor = 'null';
+
+	// Eventos para el panel origen
+	$.each(origenes, function(k, e) {
+		e.addEventListener('dragenter', dragEnter, false);
+		e.addEventListener('dragover', dragOver, false);
+		e.addEventListener('drop', dragDrop, false);
+		e.addEventListener('dragleave', dragLeave, false);
+	});
 
 	// Eventos para el objeto arrastrable
-	var objetos = $('#origen').find('.widget');
-
-	[].forEach.call(objetos, function(e) {
+	$.each(objetos, function(k, e) {
 		e.addEventListener('dragstart', dragStart, false);
 		e.addEventListener('dragend', dragEnd, false);
 	});
 
-	// Eventos para el panel origen
-	var origenes = $('#origen');
-
-	[].forEach.call(origenes, function(e) {
-		e.addEventListener('dragenter', dragEnter, false);
-		e.addEventListener('dragover', dragOver, false);
-		e.addEventListener('drop', dragDrop, false);
-		e.addEventListener('dragleave', dragLeave, false);
-	});
-
 	// Eventos para el panel destino
-	var destinos = $('.destino');
-
-	[].forEach.call(destinos, function(e) {
+	$.each(destinos, function(k, e) {
 		e.addEventListener('dragenter', dragEnter, false);
 		e.addEventListener('dragover', dragOver, false);
 		e.addEventListener('drop', dragDrop, false);
 		e.addEventListener('dragleave', dragLeave, false);
 	});
-
-	// Mostramos incialmente la etiqueta en el contenedor destino
-	/*$("#destino").append('<p>DRAG&DROP</p>');*/
 
 });
 
 /* El objeto 'comienza' a ser arrastrado */
 
-function dragStart(e) {
+function dragStart(event) {
+
+	//console.log("dragStart!!");
+	//console.log("dragStart(event): ", event);
 
 	// Guardamos el objeto que es arrastrado
-	objArrastrado = this;
+	objArrastrado = $(this);
+	//console.log(objArrastrado.text());
 
 	// Establecemos la operacion que se va a poder realizar
-	e.dataTransfer.effectAllowed = 'move';
+	event.dataTransfer.dropEffect = 'move';
+	event.dataTransfer.effectAllowed = 'move';
 	// Establecemos el dato y su tipo
-	e.dataTransfer.setData('Data', this);
+	event.dataTransfer.setData('Data', this);
 	// Centramos el objeto al cogerlo en las coord. x e y
-	e.dataTransfer.setDragImage(this, 50, 50);
+	event.dataTransfer.setDragImage(this, 50, 50);
 
-	// Resaltamos el objeto arrastrado
-	$(objArrastrado).css('border', '2px dashed');
+	//
+	// Estilos del objeto al arrastrarlo
+	//
+	objArrastrado.css('border', '2px dashed');
 
-	// Creamos un elemento 'img' para añadir una imagen fantasma
-	//var dragIcon = document.createElement('img');
-	//dragIcon.src = "http://pilas.readthedocs.org/en/latest/_images/explosion.png";
-	//dragIcon.width = 10;
-	//e.dataTransfer.setDragImage(dragIcon, 35, 35);
+	//
+	// Imagen fantastam del objeto al arrastrarlo
+	//
+	// var dragIcon = document.createElement('img');
+	// dragIcon.src = "http://developer.android.com/design/media/iconography_small_size.png";
+	// dragIcon.width = 10;
+	// event.dataTransfer.setDragImage(dragIcon, 35, 35);
+
 }
 
 /* Estamos 'entrando' en el area donde se puede dejar un objeto arrastrable */
 
 function dragEnter(e) {
 
+	//console.log("dragEnter!!");
+	//console.log("dragEnter(event): ", event);
+
 	// Ocultamos el objeto que se queda estatico
-	$(objArrastrado).css('visibility', 'hidden');
+	objArrastrado.css('visibility', 'hidden');
 
 	// Cambiamos el contorno y fondo del contenedor
 	$(this).css({
@@ -78,11 +87,19 @@ function dragEnter(e) {
 
 function dragOver(e) {
 
+	//console.log("dragOver!!");
+	//console.log("dragOver(event): ", event);
+
+	$('#coor_x').text(event.x);
+	$('#coor_y').text(event.y);
+
 	// Obtenemos el valor objeto del contenedor sobre el que se posa el objeto arrastrable
-	objContenedor = this;
+	objContenedor = $(this);
+
+	//console.log(objContenedor);
 
 	// El cursor del navegador indica el tipo de operación que se va a realizar
-	e.dataTransfer.dropEffect = 'move';
+	//e.dataTransfer.dropEffect = 'move';
 
 	// Necesario para dejar caer el objeto arrastrado
 	if (e.preventDefault) e.preventDefault();
@@ -95,13 +112,24 @@ function dragOver(e) {
 
 /* Estamos 'soltando' un objeto arrastrable */
 
-function dragDrop(e) {
+function dragDrop(event) {
 
+	console.log("dragDrop!!");
+	console.log("dragDrop(event): ", event);
+
+	console.log(objArrastrado);
+
+	//
 	// Agregamos el objeto 'arrastrable' en el contenedor actual
-	$(this).append(objArrastrado);
+	//
+	// Con == se evita depositar el objeto
+	//
+	if(objArrastrado.className != 'widget') {
+		$(this).append(objArrastrado);
+	}
 
 	// Necesario para evitar el redireccionamiento de navegadores
-	if (e.stopPropagation) e.stopPropagation();
+	if (event.stopPropagation) event.stopPropagation();
 
 	// Restauramos el contorno del objeto y el color de fondo del contenedor
 	$(this).css({
@@ -140,6 +168,6 @@ function dragEnd(e) {
 	});
 
 	// Mostramos el objeto arrastrado previamente ocultado
-	$(objArrastrado).css('visibility', 'visible');
+	objArrastrado.css('visibility', 'visible');
 
 }

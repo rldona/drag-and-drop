@@ -8,9 +8,9 @@
 <body>
 
 	<div id="origen">
-		<div class="widget red" draggable="true"></div>
-		<div class="widget blue" draggable="true"></div>
-		<div class="widget green" draggable="true"></div>
+		<div class="widget" data-widget="logo" draggable="true"><span>Logo</span></div>
+		<div class="widget" draggable="true"><span>Buscador</div>
+		<div class="widget" draggable="true"><span>Banner</span></div>
 	</div>
 
 	<div class="destino"></div>
@@ -18,6 +18,9 @@
 	<div class="destino__no_content"></div>
 
 	<div class="destino"></div>
+
+	<p>x: <span id="coor_x"></span></p>
+	<p>y: <span id="coor_y"></span></p>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="js/scripts.js"></script>
