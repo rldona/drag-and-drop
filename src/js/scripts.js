@@ -1,9 +1,9 @@
 // Valores iniciales de objetos
-var objArrastrado,
-		objContenedor,
-		origenes = $('#origen'),
-		objetos = $('#origen .widget'),
-		destinos = $('.destino');
+var objArrastrado;
+var objContenedor;
+var origenes = $('#origen');
+var objetos = $('#origen .widget');
+var destinos = $('.destino');
 
 $(function() {
 
